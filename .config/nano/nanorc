@@ -43,3 +43,7 @@ include /usr/share/nano/java.nanorc
 include /usr/share/nano/nftables.nanorc
 include /usr/share/nano/lua.nanorc
 include /usr/share/nano/sql.nanorc
+
+set tabsize 4
+set tabstospaces
+
