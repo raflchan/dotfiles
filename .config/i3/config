@@ -252,9 +252,9 @@ floating_minimum_size 75 x 50
 floating_maximum_size 800 x 600
 
 focus_on_window_activation focus
-# exec xrandr --output $(xrandr | grep " connected" | sed 's/ .*//') --mode 1920x1080
-exec picom
+
+exec $HOME/.config/i3/picom.sh
 exec polybar
 
-exec_always feh --bg-fill ~/Pictures/wallpapers/wallpaper2.jpg
+exec_always feh --bg-fill $HOME/Pictures/wallpapers/wallpaper2.jpg
 
