@@ -10,25 +10,10 @@
         {
           "type": "session",
           "style": "diamond",
-          "foreground": "#ffffff",
-          "background": "#61afef",
+          "foreground": "#7aa2f7",
+          "background": "#30364e",
           "powerline_symbol": "\ue0b0",
-          "template": " {{ if .SSHSession }}\uF817 {{ end }}{{ .UserName }}@{{ .HostName }}"
-        },
-        {
-          "type": "os",
-          "style": "powerline",
-          "foreground": "#26C6DA",
-          "background": "#546E7A",
-          "powerline_symbol": "\ue0b0",
-          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
-          "properties": {
-            "arch": "\uf303",
-            "debian": "\ue77d",
-            "display_distro_name": false,
-            "windows": "\ue70f",
-            "wsl": "\ue712"
-          }
+          "template": " {{ if .SSHSession }}\uF817 {{ end }}{{ .UserName }}@{{ .HostName }} "
         },
         {
           "type": "root",
@@ -45,8 +30,8 @@
           "type": "path",
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
-          "foreground": "#ffffff",
-          "background": "#ff479c",
+          "foreground": "#9bb9f9",
+          "background": "#414868",
           "trailing_diamond": "\ue0b0",
           "template": " \ue5ff {{ .Path }} ",
           "properties": {
@@ -58,7 +43,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
-          "background": "#8800dd",
+          "background": "#bb9af7",
           "template": " <#fefefe>\ufbab</> {{ .FormattedMs }} ",
           "properties": {
             "style": "austin",
@@ -70,9 +55,9 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
-          "background": "#2e9599",
+          "background": "#7aa2f7",
           "background_templates": [
-            "{{ if gt .Code 0 }}#f1184c{{ end }}"
+            "{{ if gt .Code 0 }}#f7768e{{ end }}"
           ],
           "trailing_diamond": "\ue0b4",
           "template": " \ue23a ",

@@ -58,10 +58,6 @@ window:
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
-  #
-  # Values for `decorations` (macOS only):
-  #     - transparent: Title bar, transparent background and title bar buttons
-  #     - buttonless: Title bar, transparent background and no title bar buttons
   decorations: none
 
   # Background opacity
@@ -77,9 +73,6 @@ window:
   #   - Maximized
   #   - Fullscreen
   #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  #startup_mode: Windowed
 
   # Window title
   title: Alacritty
@@ -293,27 +286,27 @@ colors:
 
   # Bright colors
   bright:
-      black: "#414868"
-      red: "#f7768e"
-      green: "#9ece6a"
-      yellow: "#e0af68"
-      blue: "#7aa2f7"
-      magenta: "#bb9af7"
-      cyan: "#7dcfff"
-      white: "#a9b1d6"
+      black: "#616c9c"
+      red: "#f998aa"
+      green: "#b6da8f"
+      yellow: "#e7c38d"
+      blue: "#9bb9f9"
+      magenta: "#cbb3f9"
+      cyan: "#9ddbff"
+      white: "#bec4e0"
 
   # Dim colors
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
   dim:
-      black: "#414868"
-      red: "#f7768e"
-      green: "#9ece6a"
-      yellow: "#e0af68"
-      blue: "#7aa2f7"
-      magenta: "#bb9af7"
-      cyan: "#7dcfff"
-      white: "#a9b1d6"
+      black: "#30364e"
+      red: "#f11f46"
+      green: "#77b039"
+      yellow: "#cc8929"
+      blue: "#2265f1"
+      magenta: "#7c3def"
+      cyan: "#1eabff"
+      white: "#6876b7"
 
   # Indexed Colors
   #
@@ -373,13 +366,13 @@ colors:
   #
   #command: None
 
-#selection:
+selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
+  save_to_clipboard: false
 
 cursor:
   # Cursor style
@@ -390,7 +383,7 @@ cursor:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    shape: Beam
+    shape: Block
 
     # Cursor blinking state
     #
