@@ -194,24 +194,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Bar
-# bar {
-#   # status_command i3status
-#   status_command SCRIPT_DIR=/usr/lib/i3blocks i3blocks
-#   tray_output primary
-#   font pango: SFNS Display Nerd Font Mono Numericals 12
-
-#   colors {
-#     separator $base03
-#     background $base01
-#     statusline $base05
-#     focused_workspace $bgcolor $bgcolor $base07
-#     active_workspace $base02 $base02 $base07
-#     inactive_workspace $base01 $base01 $base03
-#     urgent_workspace $base08 $base08 $base07
-#   }
-# }
-
 # Colors
 
 set $textcolor #101218
@@ -242,19 +224,20 @@ assign [class="Brave-browser"] $ws2
 assign [class="code-oss"] $ws3
 
 default_border pixel 0
+#for_window [class="Alacritty"] border pixel 5
 
 gaps outer 4
-gaps inner 12
+gaps inner 24
 workspace $ws2 gaps outer 0
 workspace $ws2 gaps inner 0
 
 floating_minimum_size 75 x 50
-floating_maximum_size 800 x 600
+floating_maximum_size 1000 x 800
 
 focus_on_window_activation focus
 
 exec $HOME/.config/i3/picom.sh
 exec polybar
 
-exec_always feh --bg-fill $HOME/Pictures/wallpapers/wallpaper2.jpg
+exec_always feh --bg-fill $HOME/Pictures/wallpapers/wallpaper3.jpg
 
