@@ -12,7 +12,7 @@ case $vendor in
         exit
         ;;
     *)
-        picom --backend glx --experimental-backend --blur-method dual_kawase
+        picom --backend glx --blur-method dual_kawase
         exit
         ;;
 esac
