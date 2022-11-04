@@ -247,5 +247,5 @@ focus_on_window_activation focus
 exec $HOME/.config/i3/picom.sh
 exec_always pkill -15 polybar; polybar
 
-exec_always feh --bg-fill $HOME/Pictures/wallpapers/wallpaper3.jpg
+exec_always feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
 
