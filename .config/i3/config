@@ -243,6 +243,8 @@ floating_minimum_size 75 x 50
 floating_maximum_size 1000 x 800
 
 focus_on_window_activation focus
+focus_follows_mouse no
+
 
 exec $HOME/.config/i3/picom.sh
 exec_always pkill -15 polybar; polybar
