@@ -249,6 +249,7 @@ focus_on_window_activation focus
 focus_follows_mouse no
 
 
+exec $HOME/.config/i3/autotiling
 exec $HOME/.config/i3/picom.sh
 exec_always pkill -15 polybar; polybar
 
