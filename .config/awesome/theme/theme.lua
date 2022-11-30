@@ -1,5 +1,5 @@
 ---------------------------
--- Default awesome theme --
+-- rafl awesome theme --
 ---------------------------
 
 local theme_assets = require("beautiful.theme_assets")
@@ -25,10 +25,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(8)
--- theme.border_width  = dpi(1)
 theme.border_width  = dpi(1)
--- theme.border_width  = dpi(2)
--- theme.border_normal = "#535d6c00"
 theme.border_normal = "#00000000"
 theme.border_focus  = "#7aa2f7ff"
 theme.border_marked = "#91231c"
@@ -60,6 +57,12 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
+
+theme.menu_submenu_icon = themes_path.."default/submenu.png"
+theme.menu_height = dpi(15)
+theme.menu_width  = dpi(100)
+
+theme.wallpaper = gfs.get_configuration_dir().."theme/background.png"
 
 -- You can add as many variables as
 -- you wish and access them by using
