@@ -1,0 +1,129 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+//Global Styles
+
+$background: #0f0f17;
+$mem-bar-bg: #4e4e4e;
+
+.primary_bar,
+.secondary_bar {
+  // font-family: "Segoe UI Variable Static Display", "FiraCode Nerd Font Mono";
+  font-family: "Nova Mono", "FiraCode Nerd Font Mono";
+  font-weight: bold;
+  font-size: large;
+  background-color: $background;
+  color: #b0b4bc;
+}
+
+// Styles on classes (see eww.yuck for more information)
+
+scale trough {
+  all: unset;
+  background-color: grey;
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 100px;
+  margin: 0 20px 0 20px;
+}
+scale trough highlight {
+  all: unset;
+  background-color: red;
+  border-radius: 10px;
+}
+
+.bar {
+  padding: 0 1rem;
+  // padding-bottom: 2px;
+}
+
+.circ_module {
+  margin-right: .75em;
+
+  .bar { background-color: $mem-bar-bg;}
+  .icon { 
+    font-size: 1.25em;
+    color: $background;
+  }
+}
+
+.workspaces button {
+  padding-left: 5;
+  padding-right: 5;
+}
+
+// OLD
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #D35D6E;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: #D35D6E;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.label-ram {
+  font-size: large;
+}
+.workspaces button:hover {
+  color: #D35D6E;
+}
+
+
+
+
+
+
+
+// // CENTER MODULES
+// .center_icons {
+//   margin-right: 5px;
+//   margin-left: 15px;
+// }
+// .center_labels {
+//   font-size: 15px;
+//   margin-bottom: -3px;
+//   margin-top: 1px;
+//   color: #ffc994;
+// }
+
+// .center_info scale trough highlight {
+//   all: unset;
+//   background: #F1A277;
+//   border-radius: 10px;            
+//   border: solid 2px #ffcb83;
+// }
+// .center_info scale trough {
+//   all: unset;
+//   background-color: rgba(255,201,148, 0.4);
+//   border-radius: 10px;
+//   min-width: 110px;
+//   min-height: 10px;               
+// }

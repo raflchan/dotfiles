@@ -32,5 +32,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xrandr --output $(xrandr | grep " connected" | sed 's/ .*//') --mode 1920x1080
-exec /usr/bin/i3
+setxkbmap 'de(us)'
+xinput set-prop 9 'libinput Accel Speed' '-0.8'
+xrandr --output DP-0 --primary --mode 1920x1080 --output HDMI-0 --mode 1920x1080 --right-of DP-0
+exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr

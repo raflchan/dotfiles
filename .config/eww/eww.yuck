@@ -1,0 +1,184 @@
+(deflisten tagdata_primary :initial "[]" `tail 2>/dev/null -f $($HOME/.config/custom_scripts/for_wm/python/tags.py client "subscribe 1")`)
+(deflisten tagdata_secondary :initial "[]" `tail 2>/dev/null -f $($HOME/.config/custom_scripts/for_wm/python/tags.py client "subscribe 2")`)
+(defvar test_reveal false)
+(defvar test_reveal2 false)
+(defvar eww "eww")
+(defvar cpu_percent "10")
+
+(defpoll music_pos 
+  :interval "200ms"
+  "playerctl position | sed 's/\\.//'"
+)
+(defpoll music_len 
+  :interval "200ms"
+  "playerctl metadata mpris:length"
+)
+(defvar test "10")
+
+
+
+(defwidget bar [tagdata]
+  (centerbox
+    :orientation "h"
+    :class "bar"
+    (workspaces :tagdata tagdata)
+    (box
+      :orientation "h"
+      :space-evenly false
+      ; (music)
+      ; (box
+      ;   :class "test"
+      ;   (scale :value 50 :max 100 :min 0)
+      ; )
+      ; (test2)
+    )
+    (sidestuff)
+  )
+)
+
+(defwidget music []
+  (scale
+    :min 0
+    :max "${ music_len / 1000000 }"
+    :onchange "eww update test={}"
+    :value music_pos
+  )
+)
+
+(defwidget debug [data]
+  data
+)
+
+(defpoll time2 :interval "10s"
+"date '+%H:%M'")
+
+(defpoll date :interval "10s"
+"date '+%d.%m.%Y'")
+
+(defwidget test2 []
+  (eventbox
+    :onhover "eww update test_reveal2=true"
+    :onhoverlost "eww update test_reveal2=false"
+    (box
+      :orientation "v"
+      :space-evenly false
+      :vexpand false
+      :hexpand false
+      :valign "center"
+      (box
+        (revealer
+          :reveal "${!test_reveal2}"
+          :transition "slidedown"
+          :duration "350ms"
+          (label
+            :text "HOVER ME"
+          )
+        )
+      )
+      (box
+        (revealer
+          :reveal test_reveal2
+          :transition "slideup"
+          :duration "350ms"
+          (label
+            :text "I'm Hidden"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    ; (mem_module)
+    ; (circ_module
+      ;   :value {EWW_CPU.avg}
+      ;   :tooltip "${round(EWW_CPU.avg, 1)}%"
+    ; )
+    ; (circ_module
+      ;   :value {EWW_RAM.used_mem_perc}
+      ;   :tooltip "${round(EWW_RAM.used_mem / (1024*1024*1024), 2)}GB"
+    ; )
+    time
+  )
+)
+
+(defwidget circ_module [value ?tooltip ?class_suffix]
+  (box
+    :class "circ_module${class_suffix}"
+    :tooltip tooltip
+    :vexpand false
+    :hexpand false
+    (overlay
+      (circular-progress
+        :class "bar"
+        :value value
+        :start-at 0
+        :thickness 10
+      )
+      (button
+        :class "icon"
+        ""
+      )
+    )
+  )
+)
+
+(defwidget workspaces [tagdata]
+  (box :class "workspaces"
+    :orientation "h"
+    :space-evenly true
+    :halign "start"
+    ;  :spacing 10
+    (for tag in tagdata
+      (button :onclick "wmctrl -s \$(wmctrl -d | grep ${tag.name} | cut -d' ' -f1)" "${tag.selected ? '' : ''}")
+    )
+  )
+)
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+    :class "metric"
+    :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+      :max 101
+      :active {onchange != ""}
+      :value value
+    :onchange onchange)))
+
+
+(deflisten music :initial ""
+"playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll volume :interval "1s"
+"scripts/getvol")
+
+(defpoll time :interval "10s"
+"date '+%d.%m.%Y %H:%M'")
+
+
+
+(defwindow primary_bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "30px"
+  :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "30px")
+  (bar :tagdata tagdata_primary))
+
+(defwindow secondary_bar
+  :monitor 1
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "30px"
+  :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "30px")
+  (bar :tagdata tagdata_secondary))
