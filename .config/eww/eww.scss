@@ -17,6 +17,7 @@ $mem-bar-bg: #4e4e4e;
   color: #b0b4bc;
 }
 
+
 // Styles on classes (see eww.yuck for more information)
 
 scale trough {
@@ -51,7 +52,10 @@ scale trough highlight {
 .workspaces button {
   padding-left: 5;
   padding-right: 5;
+  font-size: 1.25em;
 }
+
+
 
 // OLD
 .sidestuff slider {

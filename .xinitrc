@@ -32,7 +32,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+export PATH=${PATH}:$HOME/.local/share/flatpak/exports/bin
+nvidia-settings -a 0/AllowFlipping=0
+xsetroot -cursor_name left_ptr
+xrdb -merge ~/.Xresources
 setxkbmap 'de(us)'
-xinput set-prop 9 'libinput Accel Speed' '-0.8'
-xrandr --output DP-0 --primary --mode 1920x1080 --output HDMI-0 --mode 1920x1080 --right-of DP-0
+xinput set-prop 'pointer:Logitech G502' 'libinput Accel Speed' -0.68
+# xrandr --output DP-0 --primary --mode 1920x1080 --rate 144.00 --output HDMI-0 --mode 1920x1080 --rate 60.00 --right-of DP-0
+
+# set resolution properly
+xrandr -d :0 --fb 4960x1440 \
+    --output DP-0 --mode 2560x1440 --rate 144.00 \
+    --scale 1x1 --pos 0x0 \
+    --primary \
+    \
+    --output HDMI-0 --mode 1920x1080 --rate 60.00 \
+    --scale 1.25x1.25  \
+    --right-of DP-0
+
 exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+#exec /usr/bin/i3

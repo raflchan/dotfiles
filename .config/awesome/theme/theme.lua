@@ -25,7 +25,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(8)
-theme.border_width  = dpi(1)
+theme.border_width  = 0
 theme.border_normal = "#00000000"
 theme.border_focus  = "#7aa2f7ff"
 theme.border_marked = "#91231c"
@@ -63,6 +63,7 @@ theme.menu_height = dpi(15)
 theme.menu_width  = dpi(100)
 
 theme.wallpaper = gfs.get_configuration_dir().."theme/background.png"
+-- theme.wallpaper = gfs.get_configuration_dir().."theme/wallpaper2.png"
 
 -- You can add as many variables as
 -- you wish and access them by using

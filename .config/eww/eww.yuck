@@ -5,16 +5,19 @@
 (defvar eww "eww")
 (defvar cpu_percent "10")
 
-(defpoll music_pos 
+(defpoll calendar_day :interval "1m" "date '+%d'")
+(defpoll calendar_month :interval "1m" "date '+%m'")
+(defpoll calendar_year :interval "1m" "date '+%Y'")
+
+(defpoll music_pos
   :interval "200ms"
   "playerctl position | sed 's/\\.//'"
 )
-(defpoll music_len 
+(defpoll music_len
   :interval "200ms"
   "playerctl metadata mpris:length"
 )
 (defvar test "10")
-
 
 
 (defwidget bar [tagdata]
@@ -27,8 +30,8 @@
       :space-evenly false
       ; (music)
       ; (box
-      ;   :class "test"
-      ;   (scale :value 50 :max 100 :min 0)
+        ;   :class "test"
+        ;   (scale :value 50 :max 100 :min 0)
       ; )
       ; (test2)
     )
@@ -132,7 +135,8 @@
     :halign "start"
     ;  :spacing 10
     (for tag in tagdata
-      (button :onclick "wmctrl -s \$(wmctrl -d | grep ${tag.name} | cut -d' ' -f1)" "${tag.selected ? '' : ''}")
+      (button :onclick "wmctrl -s \$(wmctrl -d | grep ${tag.name} | cut -d' ' -f1)" "${tag.selected ? '●' : '○'}")
+      ; if application on it then: ◎
     )
   )
 )
@@ -160,6 +164,16 @@
 "date '+%d.%m.%Y %H:%M'")
 
 
+(defwindow rafl_calendar
+  :monitor 0
+  :wm-ignore true
+  :windowtype "normal"
+  :geometry (geometry
+    :x "0%"
+    :y "-36px" 
+    :anchor "bottom right")
+  (calendar :day calendar_day :month calendar_month :year calendar_year)
+)
 
 (defwindow primary_bar
   :monitor 0
@@ -167,9 +181,9 @@
   :geometry (geometry :x "0%"
     :y "0%"
     :width "100%"
-    :height "30px"
+    :height "32px"
   :anchor "bottom center")
-  :reserve (struts :side "bottom" :distance "30px")
+  :reserve (struts :side "bottom" :distance "32px")
   (bar :tagdata tagdata_primary))
 
 (defwindow secondary_bar
@@ -178,7 +192,7 @@
   :geometry (geometry :x "0%"
     :y "0%"
     :width "100%"
-    :height "30px"
+    :height "32px"
   :anchor "bottom center")
-  :reserve (struts :side "bottom" :distance "30px")
+  :reserve (struts :side "bottom" :distance "32px")
   (bar :tagdata tagdata_secondary))

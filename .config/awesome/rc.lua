@@ -93,75 +93,6 @@ awful.layout.layouts = {
 }
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
--- myawesomemenu = {
---    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
---    { "manual", terminal .. " -e man awesome" },
---    { "edit config", editor_cmd .. " " .. awesome.conffile },
---    { "restart", awesome.restart },
---    { "quit", function() awesome.quit() end },
--- }
-
--- mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
---                                     { "open terminal", terminal }
---                                   }
---                         })
-
--- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
---                                      menu = mymainmenu })
-
--- Menubar configuration
--- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
-
--- Create a wibox for each screen and add it
--- local taglist_buttons = gears.table.join(
---                     awful.button({ }, 1, function(t) t:view_only() end),
---                     awful.button({ modkey }, 1, function(t)
---                                               if client.focus then
---                                                   client.focus:move_to_tag(t)
---                                               end
---                                           end),
---                     awful.button({ }, 3, awful.tag.viewtoggle),
---                     awful.button({ modkey }, 3, function(t)
---                                               if client.focus then
---                                                   client.focus:toggle_tag(t)
---                                               end
---                                           end),
---                     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
---                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
---                 )
-
--- local tasklist_buttons = gears.table.join(
---                      awful.button({ }, 1, function (c)
---                                               if c == client.focus then
---                                                   c.minimized = true
---                                               else
---                                                   c:emit_signal(
---                                                       "request::activate",
---                                                       "tasklist",
---                                                       {raise = true}
---                                                   )
---                                               end
---                                           end),
---                      awful.button({ }, 3, function()
---                                               awful.menu.client_list({ theme = { width = 250 } })
---                                           end),
---                      awful.button({ }, 4, function ()
---                                               awful.client.focus.byidx(1)
---                                           end),
---                      awful.button({ }, 5, function ()
---                                               awful.client.focus.byidx(-1)
---                                           end))
-
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -264,9 +195,6 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
-    awful.key({ modkey }, "RightClick", function(c) end,
-              {description = "resize client", group = "client"}),
-
     awful.key({ modkey }, "r", function(c)
         awful.tag.master_width_factor = 0.5
         awful.client.setwfact(0.5)
@@ -278,21 +206,32 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     -- awful.key({ modkey}, "h", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end,
             --   {description = "open the help menu with all shortcuts", group = "awesome"}),
-    awful.key({ modkey }, "c", function() awful.spawn.spawn("code " .. cfg_dir .. "rc.lua") end,
+    awful.key({ modkey }, "c", function() awful.spawn("code " .. cfg_dir .. "rc.lua") end,
             {description = "open the rc.lua file with code", group = "awesome"}),
-    awful.key({ modkey, "Shift" }, "c", function() awful.spawn.spawn(terminal .. " -e nano " .. cfg_dir .. "rc.lua") end,
+    awful.key({ modkey, "Shift" }, "c", function() awful.spawn(terminal .. " -e lvim" .. cfg_dir .. "rc.lua") end,
                 {description = "open the rc.lua file with code", group = "awesome"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "e", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ "Control", "Shift"   }, "Escape", function () awful.spawn.spawn("alacritty --class \"TaskMgr\" -e btop") end,
+    awful.key({ modkey }, "v", function () awful.spawn("copyq menu") end,
+        {description = "open clipboard manager context menu", group = "launcher"}),
+
+    awful.key({ "Control", "Shift"   }, "Escape", function () awful.spawn.raise_or_spawn("alacritty --class \"TaskMgr\" -e btop", nil, function (c)
+        if c.class == "TaskMgr" then
+            c:jump_to()
+            return true
+        end
+        return false
+    end) end,
               {description = "spawn floating alacritty window running btop with focus", group = "awesome"}),
 
     awful.key({ modkey }, "d", function () awful.spawn("rofi -show combi -theme rafl -monitor -1") end,
               {description = "launch rofi", group = "launcher"}),
-    awful.key({ modkey }, "b", function () awful.spawn("brave") end,
+    awful.key({ modkey }, "b", function () awful.spawn.raise_or_spawn("brave", nil, function (c)
+        return c.class == "Brave-browser"
+    end) end,
               {description = "launch brave", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "p", function () awful.spawn("qpwgraph") end,
               {description = "launch patching software (qpwgraph)", group = "launcher"}),
@@ -327,7 +266,6 @@ globalkeys = gears.table.join(
                   end
               end,
               {description = "restore minimized", group = "client"})
-
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
@@ -485,7 +423,7 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
-                     raise = true,
+                     raise = false,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
@@ -523,7 +461,7 @@ awful.rules.rules = {
           "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true, placement = awful.placement.centered }},
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
@@ -535,7 +473,7 @@ awful.rules.rules = {
     --   properties = { screen = 1, tag = "2" } },
 
     {
-        rule_any = { class = { "Brave-browser", "discord", "Steam" }},
+        rule_any = { class = { "discord", "Steam" }},
         properties = { screen = 2, tag = "t_21" }
     },
     {
@@ -564,15 +502,18 @@ awful.rules.rules = {
         }
     },
 
-    { 
+    {
         -- Warhammer 40,000: Darktide
-        rule_any = { class = { "steam_app_1361210" } },
+        rule_any = { class = { "steam_app_1361210", "ixion.exe" } },
         properties = { floating = true, fullscreen = true, screen = 1, sticky = true, ontop = true }
     },
-
-    { 
+    {
+        rule_any = { name = { "Friends List" } },
+        properties = { floating = true }
+    },
+    {
         rule_any = { class = { "TaskMgr" } },
-        properties = { floating = true, focus = true, ontop = true }
+        properties = { floating = true, raise = true, ontop = true, placement = awful.placement.centered }
     },
 
     { rule_any = { type = { 'dialog', 'modal' } },
@@ -582,6 +523,13 @@ awful.rules.rules = {
             placement = awful.placement.centered
         }
     }
+
+    -- {
+    --     rule_any = { type = {"notification"} },
+    --     properties = {
+    --         ontop = true
+    --     }
+    -- }
 }
 -- }}}
 
@@ -697,15 +645,27 @@ end)
 -- {{{ Autostart
 
 -- awful.spawn.spawn(cfg_dir .. "scripts/polybar.sh")
-awful.spawn.spawn(cfg_dir .. "scripts/picom.sh")
+
+-- noisetorch
+awful.spawn.easy_async_with_shell("sleep 5; noisetorch -u", function ()
+    awful.spawn.with_shell("sleep 5; noisetorch -i alsa_input.usb-BLUE_MICROPHONE_Blue_Snowball_AYM_2018_06_21_02351-00.mono-fallback")
+end)
+
+awful.spawn(cfg_dir .. "scripts/picom.sh")
+awful.spawn("copyq")
 awful.spawn.with_shell("pkill -15 -x tags.py; $HOME/.config/custom_scripts/for_wm/python/tags.py server")
-awful.spawn.with_shell("eww kill; eww daemon; eww open primary_bar; eww open secondary_bar; sleep 1; $HOME/.config/custom_scripts/for_wm/python/tags.py client update")
-awful.spawn.spawn("discord")
+awful.spawn.with_shell("eww kill; eww daemon; eww open primary_bar; sleep 1; $HOME/.config/custom_scripts/for_wm/python/tags.py client update")
+
+-- xborders
+awful.spawn.easy_async("pkill -15 -x xborders", function ()
+    awful.spawn(cfg_dir .. "scripts/xborder/xborders")
+end)
+
 
 -- }}}
 
 -- {{{ CUSTOM FUNCTIONS
-    
+
 -- function get_tags()
 --     local tags = "";
 --     for s in screen do
@@ -773,11 +733,12 @@ end
 naughty.config.defaults.screen = "primary"
 -- preferably do this with dpi scaling, but awful.screen.primary is null so lmao
 -- that's because it's just screen.primary, retard
-naughty.config.defaults.icon_size = 48
+naughty.config.defaults.icon_size = dpi(48)
 naughty.config.defaults.position = "top_right"
-naughty.config.defaults.font = "SFNS Display 9"
-naughty.config.defaults.max_width = 400
-naughty.config.defaults.max_height = 450
-naughty.config.defaults.margin = 16
+naughty.config.defaults.font = "SFNS Display "..dpi(9)
+naughty.config.defaults.max_width = dpi(400)
+naughty.config.defaults.max_height = dpi(450)
+naughty.config.defaults.margin = dpi(16)
 naughty.config.padding = dpi(8)
 naughty.config.spacing = dpi(8)
+naughty.config.defaults.ontop = true
