@@ -1,0 +1,13 @@
+decorations none
+transparent false
+background "#0f0f17"
+dockapp_mode none
+icon_gravity NE
+grow_gravity W
+sticky true
+window_type dock
+window_layer bottom
+geometry 5x1-2620-3
+slot_size 26
+kludges force_icons_size
+icon_size 24

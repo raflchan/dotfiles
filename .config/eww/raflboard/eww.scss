@@ -1,0 +1,78 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+  transition: all 150ms ease-in-out;
+  font-family: "Nova Mono", "FiraCode Nerd Font Mono";
+}
+
+$background: #2E3440;
+$above-background: #474D59;
+
+.dashboard {
+  background-color: $background;
+
+  // border-top-right-radius: 25px;
+  // border-bottom-right-radius: 25px;
+}
+
+.poweroptions {
+  margin: 20px;
+
+  // padding: 15px;
+  // margin-left: 20px;
+  // margin-right: 20px;
+
+  .powerbutton {
+    button {
+      font-size: 80px;
+      color: black;
+      background-color: $above-background;
+      border-radius: 15px;
+
+      &:hover {
+        background-color: #840032;
+      }
+
+    }
+  }
+}
+
+
+.cal {
+  margin: 20px;
+
+  calendar {
+
+    border-radius: 15px;
+    padding: 10px;
+    color: white;
+    background-color: $above-background;
+
+    :selected {
+      background-color: grey;
+      color: black;
+    }
+
+    .header {
+      color: cyan;
+      // padding: 10px;
+      font-weight: bold;
+      font-size: larger;
+    }
+
+    .button {
+      color: cyan;
+    }
+
+    .highlight {
+      // background-color: #2E3440;
+      color: black;
+      font-weight: bold;
+    }
+
+    :indeterminate {
+      color: grey;
+    }
+  }
+}
+
+// * {  border: 1px solid red;}

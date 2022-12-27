@@ -1,0 +1,75 @@
+(defwindow dashboard
+    :class "dashboard"
+    :monitor 1
+    :geometry (
+        geometry :x "0%"
+        :y "0%"
+        :width "500px"
+        :height "100%"
+        :anchor "top left"
+    )
+    :stacking "fg"
+    :windowtype "dock"
+    :wm-ignore true
+    (content)
+)
+
+(defwidget content []
+    (box
+        :orientation "vertical"
+        :space-evenly false
+        (box :vexpand true)
+        (cal)
+        (poweroptions)
+
+    )
+)
+
+(defwidget poweroptions []
+    (box 
+        :class "poweroptions"
+        :orientation "horizontal"
+        :halign "left"
+        :spacing 15
+        (powerbutton 
+            :name ""
+            :cmd "systemctl poweroff"
+        )
+        (powerbutton 
+            :name ""
+            :cmd "systemctl reboot"
+        )
+        (powerbutton 
+            :name ""
+            :cmd "sleep"
+        )
+        (powerbutton 
+            :name ""
+            :cmd "betterlockscreen -l dim"
+        )
+    )
+
+)
+
+(defwidget powerbutton [?name ?cmd]
+    (box
+        :class "powerbutton"
+        :height 100
+        :width  100
+        (button
+            :onclick {cmd}
+            {name}
+        )
+    )
+)
+
+(defwidget cal []
+    (box
+        :class "cal"
+        (calendar
+            :show-heading true
+            :show-details true ;????
+            :show-week-numbers false
+        )
+    )
+)

@@ -176,10 +176,10 @@ globalkeys = gears.table.join(
 
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
-              {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
-              {description = "swap with previous client by index", group = "client"}),
+    -- awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    --           {description = "swap with next client by index", group = "client"}),
+    -- awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+    --           {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
@@ -204,11 +204,11 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    -- awful.key({ modkey}, "h", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end,
-            --   {description = "open the help menu with all shortcuts", group = "awesome"}),
+    awful.key({ modkey }, "F1", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end,
+              {description = "open the help menu with all shortcuts", group = "awesome"}),
     awful.key({ modkey }, "c", function() awful.spawn("code " .. cfg_dir .. "rc.lua") end,
             {description = "open the rc.lua file with code", group = "awesome"}),
-    awful.key({ modkey, "Shift" }, "c", function() awful.spawn(terminal .. " -e lvim" .. cfg_dir .. "rc.lua") end,
+    awful.key({ modkey, "Shift" }, "c", function() awful.spawn(terminal .. " -e micro" .. cfg_dir .. "rc.lua") end,
                 {description = "open the rc.lua file with code", group = "awesome"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -485,6 +485,10 @@ awful.rules.rules = {
         properties = { focusable = false, border_width = 0 }
     },
     {
+        rule_any = { class = {"awesome"}},
+        properties = { ontop = true }
+    },
+    {
         rule_any = { class = {"stalonetray"}},
         properties = {
             focusable = false,
@@ -654,8 +658,8 @@ end)
 awful.spawn(cfg_dir .. "scripts/picom.sh")
 awful.spawn("copyq")
 awful.spawn.with_shell("pkill -15 -x tags.py; $HOME/.config/custom_scripts/for_wm/python/tags.py server")
-awful.spawn.with_shell("eww kill; eww daemon; eww open primary_bar; sleep 1; $HOME/.config/custom_scripts/for_wm/python/tags.py client update")
-
+awful.spawn.with_shell("eww kill; eww daemon; eww --config $HOME/.config/eww/taskbar/ open-many primary_bar secondary_bar; sleep 2; $HOME/.config/custom_scripts/for_wm/python/tags.py client update")
+awful.spawn.with_shell("pkill -15 -x stalonetray; stalonetray -c $HOME/.config/stalonetray/config")
 -- xborders
 awful.spawn.easy_async("pkill -15 -x xborders", function ()
     awful.spawn(cfg_dir .. "scripts/xborder/xborders")
