@@ -21,9 +21,10 @@ class DbusListener:
                 _notification['summary'],
                 _notification['body'],
                 _notification['actions'],
+                _notification['hints'],
             )
             self.notifications.add(notification)
-            print(self.notifications.to_json())
+            # print(self.notifications.to_json())
 
     def run(self):
         loop = DBusGMainLoop(set_as_default=True)
